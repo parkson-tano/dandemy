@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% for cat in all_categories  %}
+<h3>
+    {{cat}}
+</h3>
+  
+{% endfor %}
+
+{% for cl in course %}
+  <h3> {{cl.title}} </h3>
+  <a href="{% url 'courses:course_detail' cl.slug %}">see more</a>
+{% endfor %}
+
+<a href="{% url 'courses:course'%}">see all</a>  
+{% endblock content %}

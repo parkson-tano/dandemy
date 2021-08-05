@@ -1,0 +1,8 @@
+
+{% for co in  course %}
+  <h4>
+      {{co.title}}
+        <a href="{% url 'courses:course_detail' co.slug %}">see more</a>
+  </h4>
+    <a href="{% url 'courses:course_detail' co.slug %}">see more</a>
+{% endfor %}
