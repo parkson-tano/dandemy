@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, DetailView, ListView, View, CreateView,FormView
-from .models import Course, Chapter, Lesson, Category
+from .models import Course, Chapter, Lesson
+from category.models import Category, SubCategory
 from .forms import *
 from django.db.models import Q
 from itertools import chain
@@ -60,12 +61,14 @@ class ChapterDetailView(TemplateView):
         context["chapter"] = chapter
         context['lesson'] = lesson 
         return context
+
 class LessonDetailView(View):
-    def get(self, request, course_slug, lesson_slug, *args, **kwargs):
+    def get(self, request, chapter_slug, lesson_slug, *args, **kwargs):
         chapter = get_object_or_404(Chapter, slug=chapter_slug)
         lesson = get_object_or_404(Lesson, slug=lesson_slug)  
         context = {'lesson' : lesson}
         return render(request, 'course/lesson_detail.html', context)
+
 class SearchView(TemplateView):
     template_name = 'course/search_result.html'
 

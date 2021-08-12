@@ -3,19 +3,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from autoslug import AutoSlugField
 from django.utils import timezone
+from category.models import Category, SubCategory
 # Create your models here.
-
-class Category(models.Model):
-    name = models.CharField(max_length=50)
-    slug = AutoSlugField(populate_from='name')
-    description = models.TextField(blank=True, null=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("course:category_detail", kwargs={"slug": self.slug})
 
 class Course(models.Model):
     CHARGE = (
@@ -32,6 +21,7 @@ class Course(models.Model):
     )
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=60)
     slug = AutoSlugField(populate_from='title')
@@ -41,6 +31,7 @@ class Course(models.Model):
     charge = models.CharField(max_length=20, choices=CHARGE, default='FREE')
     price = models.PositiveIntegerField(blank=True, null=True)
     target_audience = models.CharField(max_length=40, choices = LEARNER, default='all')
+    apply_discount = models.FloatField(default=0)
     attended_no = models.PositiveIntegerField(default=0)
     view_count = models.IntegerField(default=0)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -50,7 +41,18 @@ class Course(models.Model):
 
     def get_absolute_url(self):
         return reverse("course:course_detail", kwargs={"slug": self.slug})
-    
+
+class Competence(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    competence_1 = models.TextField(blank=True, null=True)
+    competence_2 = models.TextField(blank=True, null=True)
+    competence_3 = models.TextField(blank=True, null=True)
+    competence_4 = models.TextField(blank=True, null=True)
+    competence_5 = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        self.course
+
 class Chapter(models.Model):
     course = models.ForeignKey(Course, on_delete = models.CASCADE)
     title = models.CharField(max_length=254, null=True, blank=True)

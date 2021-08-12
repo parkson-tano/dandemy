@@ -17,7 +17,7 @@ class LessonAdmin(admin.ModelAdmin):
     search_fields =  ('__str__', 'chapter')
     list_filter = ('chapter', 'position','date_created')
 
-admin.site.register(Category)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Chapter, ChapterAdmin)
+admin.site.register(Competence)

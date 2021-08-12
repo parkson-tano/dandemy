@@ -7,7 +7,7 @@ class CartAdmin(admin.ModelAdmin):
     list_filter = ('total','date_created')
 
 class CartCourseAdmin(admin.ModelAdmin):
-    list_display = ('cart','subtotal','date_created')
+    list_display = ('cart','course','subtotal','date_created')
     list_filter = ('subtotal','date_created')
 
 admin.site.register(CartCourse, CartCourseAdmin)

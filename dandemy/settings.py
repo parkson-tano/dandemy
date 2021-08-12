@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'cart',
     'favourite',
     'notifications',
+    'django_countries',
+    'enroll',
+    'category',
 ]
 
 MIDDLEWARE = [
